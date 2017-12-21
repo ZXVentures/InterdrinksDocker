@@ -1,5 +1,5 @@
 FROM composer:latest as composer
-FROM php:7.1-fpm-alpine
+FROM php:7.2-fpm-alpine
 
 ENV APCU_VERSION 5.1.8
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
