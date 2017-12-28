@@ -1,18 +1,6 @@
-A Dockerfile implementing php:7.1-fpm-alpine with dependencies for PHP projects.
+This repository provides Docker images for Interdrinks for PHP projects.
 
 **This configuration is built for development. It is not recommended to use it in production.**
-
-## Installation
-
-Run following command to build & run container:
-
-```bash
-docker run -d -p 9000:9000 interdrinks/php:7.1-dev
-```
-
-## Configuration
-
-Want to integrate it with MySql? Let's use [Docker Compose](https://docs.docker.com/compose/).
 
 Create `docker-compose.yml` file as following:
 
@@ -21,28 +9,42 @@ version: '3'
 
 services:
   app:
-    image: interdrinks/php:7.1-dev
+    image: interdrinks/php:7.2
     depends_on:
       - db
+    env_file:
+      - .env
     volumes:
-      - ./:/var/www:rw
+      - $HOME/.composer/cache:/root/.composer/cache
+      - ./:/srv/api-platform:rw
+      - /srv/api-platform/var/cache
+      - /srv/api-platform/var/log
 
   db:
-    image: mysql:5.7
+    image: healthcheck/mysql
     environment:
-      MYSQL_DATABASE: foo
-      MYSQL_ROOT_PASSWORD: bar
+      - MYSQL_DATABASE=api_platform
+      - MYSQL_ROOT_PASSWORD=api_platform
     volumes:
       - db-data:/var/lib/mysql:rw
     ports:
       - 3306:3306
 
   nginx:
-    image: nginx:alpine
+    image: nginx:1.11-alpine
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./public:/srv/api-platform/public:ro
     ports:
       - 80:80
+
+  varnish:
+    image: interdrinks/varnish:4-alpine
+    depends_on:
+      - app
+    ports:
+      - 8000:80
 
 volumes:
   db-data: {}
 ```
-
