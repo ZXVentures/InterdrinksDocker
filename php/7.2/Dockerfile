@@ -21,14 +21,17 @@ RUN set -xe \
         $PHPIZE_DEPS \
         icu-dev \
         zlib-dev \
+        libxml2-dev \
     && docker-php-ext-install \
         intl \
         pdo_mysql \
         zip \
+        soap \
     && pecl install \
         apcu-${APCU_VERSION} \
-    && docker-php-ext-enable --ini-name 20-apcu.ini apcu \
-    && docker-php-ext-enable --ini-name 05-opcache.ini opcache \
+    && docker-php-ext-enable \
+        apcu \
+        opcache \
     && apk del .build-deps \
     && composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative \
     && composer clear-cache \
