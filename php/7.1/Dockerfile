@@ -36,6 +36,6 @@ RUN set -xe \
         opcache \
     && apk del .build-deps \
     && mkdir -p var/cache var/log \
-    && chmod -R 777 var
+    && chmod -R 777 var /tmp
 
 CMD ["php-fpm"]
