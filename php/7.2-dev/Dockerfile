@@ -4,10 +4,12 @@ FROM php:7.2-fpm-alpine
 ENV APCU_VERSION 5.1.8
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV WKHTMLTOPDF_BINARY /usr/bin/wkhtmltopdf
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 COPY php.ini /usr/local/etc/php/php.ini
 COPY php-fpm.conf /usr/local/etc/php-fpm.d/php-fpm.conf
+COPY wkhtmltopdf /usr/bin/wkhtmltopdf
 
 HEALTHCHECK --interval=10s --timeout=3s \
     CMD \
@@ -25,6 +27,20 @@ RUN set -xe \
         zlib \
         make \
         fcgi \
+        libgcc \
+        libstdc++ \
+        libx11 \
+        glib \
+        libxrender \
+        libxext \
+        libintl \
+        libcrypto1.0 \
+        libssl1.0 \
+        ttf-dejavu \
+        ttf-droid \
+        ttf-freefont \
+        ttf-liberation \
+        ttf-ubuntu-font-family \
     && apk add --no-cache --virtual .build-deps \
         $PHPIZE_DEPS \
         icu-dev \

@@ -1,9 +1,11 @@
 FROM php:7.1-fpm-alpine
 
 ENV APCU_VERSION 5.1.8
+ENV WKHTMLTOPDF_BINARY /usr/bin/wkhtmltopdf
 
 COPY php.ini /usr/local/etc/php/php.ini
 COPY php-fpm.conf /usr/local/etc/php-fpm.d/php-fpm.conf
+COPY wkhtmltopdf /usr/bin/wkhtmltopdf
 
 HEALTHCHECK --interval=10s --timeout=3s \
     CMD \
@@ -19,6 +21,20 @@ RUN set -xe \
         icu-libs \
         zlib \
         fcgi \
+        libgcc \
+        libstdc++ \
+        libx11 \
+        glib \
+        libxrender \
+        libxext \
+        libintl \
+        libcrypto1.0 \
+        libssl1.0 \
+        ttf-dejavu \
+        ttf-droid \
+        ttf-freefont \
+        ttf-liberation \
+        ttf-ubuntu-font-family \
     && apk add --no-cache --virtual .build-deps \
         $PHPIZE_DEPS \
         icu-dev \
