@@ -60,7 +60,7 @@ RUN set -xe \
     && composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative \
     && composer clear-cache \
     && mkdir -p var/cache var/log \
-    && chmod -R 777 var
+    && chmod -R 777 var /tmp
 
 RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/alpine/amd64/$version \
