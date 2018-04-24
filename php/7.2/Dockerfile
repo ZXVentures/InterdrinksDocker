@@ -47,9 +47,12 @@ RUN set -xe \
         soap \
     && pecl install \
         apcu-${APCU_VERSION} \
+        redis \
     && docker-php-ext-enable \
         apcu \
         opcache \
+        redis \
+    && rm -rf /tmp/pear \
     && apk del .build-deps \
     && mkdir -p var/cache var/log \
     && chmod -R 777 var /tmp

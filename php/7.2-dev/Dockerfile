@@ -25,7 +25,6 @@ RUN set -xe \
         git \
         icu-libs \
         zlib \
-        make \
         fcgi \
         libgcc \
         libstdc++ \
@@ -53,9 +52,12 @@ RUN set -xe \
         soap \
     && pecl install \
         apcu-${APCU_VERSION} \
+        redis \
     && docker-php-ext-enable \
         apcu \
         opcache \
+        redis \
+    && rm -rf /tmp/pear \
     && apk del .build-deps \
     && composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative \
     && composer clear-cache \
