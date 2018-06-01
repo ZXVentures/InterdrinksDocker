@@ -61,7 +61,7 @@ RUN set -xe \
     && apk del .build-deps \
     && composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative \
     && composer clear-cache \
-    && mkdir -p var/cache var/log \
+    && mkdir -p var/cache var/logs \
     && chmod -R 777 var /tmp
 
 RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \

@@ -54,7 +54,7 @@ RUN set -xe \
         redis \
     && rm -rf /tmp/pear \
     && apk del .build-deps \
-    && mkdir -p var/cache var/log \
+    && mkdir -p var/cache var/logs \
     && chmod -R 777 var /tmp
 
 CMD ["php-fpm"]
