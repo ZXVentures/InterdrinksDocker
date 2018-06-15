@@ -2,7 +2,7 @@ FROM interdrinks/php:7.2-dev
 
 RUN apk add --no-cache --virtual .build-deps make g++ autoconf \
     && docker-php-source extract \
-    && pecl install xdebug-2.5.0 \
+    && pecl install xdebug-2.6.0 \
     && docker-php-ext-enable xdebug \
     && docker-php-source delete \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
