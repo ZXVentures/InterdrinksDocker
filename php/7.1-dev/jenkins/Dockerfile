@@ -15,3 +15,5 @@ RUN set -xe \
     && adduser -D -u 1000 -G jenkins jenkins
 
 VOLUME /var/run/docker.sock
+
+USER jenkins
