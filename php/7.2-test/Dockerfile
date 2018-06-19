@@ -12,7 +12,7 @@ RUN set -xe \
     && pecl install xdebug-2.6.0 \
     && docker-php-ext-enable xdebug \
     && docker-php-source delete \
-    && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.remote_enable=off" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_connect_back=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && rm -rf /tmp/pear /var/cache/apk/* \
